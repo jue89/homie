@@ -32,8 +32,8 @@ N = 1; // Button Count = N * 2 + 1
 pitch = 26; // Distance between two buttons
 wall = 2; // Wall thinksness
 height = 28; // Inner height
-depth = 50; // Inner depth
-width = (2 * N + 1) * pitch; // Inner widht
+depth = 40; // Inner depth
+width = 2 * N * pitch + height; // Inner widht
 lpheight = 1.65; // Height of PCB
 screws = [ // Screw positions measured from housing center
     [-pitch/2, -depth/2 - wall + 23 + 10.67],
