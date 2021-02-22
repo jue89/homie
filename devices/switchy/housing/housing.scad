@@ -36,8 +36,8 @@ depth = 50; // Inner depth
 width = (2 * N + 1) * pitch; // Inner widht
 lpheight = 1.65; // Height of PCB
 screws = [ // Screw positions measured from housing center
-    [-pitch/2, -depth/2 + 23 + 10.67],
-    [pitch/2, -depth/2 + 23 + 10.67]
+    [-pitch/2, -depth/2 - wall + 23 + 10.67],
+    [pitch/2, -depth/2 - wall + 23 + 10.67]
 ];
 screwh1 = (height - 16.68) / 2 - 1 - lpheight; // Hight of dome 1
 screwh2 = height - screwh1 - lpheight; // Hight of dome 2
