@@ -8,10 +8,10 @@
     "manufacturer": "TE Connectivity",
     "models": {
         "68051f01-29f7-4dc5-a9a3-305caf6070c3": {
-            "filename": "3d_models/connector/rj10/te/5555980-1.step",
+            "filename": "3d_models/cache/6d752bc3-29b3-45df-8cf2-1e3aacefbcc6/3d_models/connector/rj10/te/5555980-1.step",
             "pitch": 0,
             "roll": 0,
-            "x": 5700000,
+            "x": 5660000,
             "y": 10300000,
             "yaw": 32768,
             "z": 1000000

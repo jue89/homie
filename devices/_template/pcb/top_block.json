@@ -486,7 +486,7 @@
     "net_class_default": "93058610-b35b-4cfb-a684-9b43be6c6418",
     "net_classes": {
         "93058610-b35b-4cfb-a684-9b43be6c6418": {
-            "name": "default"
+            "name": "signal"
         },
         "cb1dff40-3e81-4e82-b670-e801902fa617": {
             "name": "power"
