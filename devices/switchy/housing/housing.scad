@@ -1,9 +1,12 @@
 $fn = 50;
 
 module body (w, h, d) {
+    radius = 4;
     linear_extrude (height = d, center = true) hull () {
-            translate([w / 2 - h / 2, 0, 0]) circle(d = h);
-            translate([w / -2 + h / 2, 0, 0]) circle(d = h);
+        translate([w / 2 - radius, h / 2 - radius, 0]) circle(r = radius);
+        translate([w / -2 + radius, h / 2 - radius, 0]) circle(r = radius);
+        translate([w / 2 - radius, -h / 2 + radius, 0]) circle(r = radius);
+        translate([w / -2 + radius, -h / 2 + radius, 0]) circle(r = radius);
     };
 }
 
@@ -18,8 +21,12 @@ module half (h, w, d, wall) {
             body(w = w, h = h, d = d + 2 * wall);
             
             // Cut in two
-            translate([0, (h + wall) / 2, -wall / 2])
-                cube([w + h + 5 * wall, h + wall, d + 2 * wall], center = true);
+            translate([0, (h + wall) / 2, -wall * 2 / 5])
+                cube([w + 5 * wall, h + wall, d + 2 * wall], center = true);
+            
+            // Housing lip
+            translate([0, 0, - d / 2 - wall])
+                cube([w + 5 * wall, h + 3 * wall, wall * 2 * 3 / 5], center = true);
         };
         
         // Housing lip
@@ -41,14 +48,27 @@ screws = [ // Screw positions measured from housing center
 ];
 screwh1 = (height - 16.68) / 2 - 1 - lpheight; // Hight of dome 1
 screwh2 = height - screwh1 - lpheight; // Hight of dome 2
-screwhole = 3.2; // Diameter of screw hole
-screwheadd = 5.6; // Diameter of screw head
-screwheadh = 2.2; // Height of screw head
-ruthexd=4; // Ruthex diameter
+screwhole = 3.3; // Diameter of screw hole
+screwhead = 5.8; // Diameter of screw head
+ruthexd=4.2; // Ruthex diameter
 ruthexh=7; // Ruthex height
-switchd=16.3; // Switch diameter
-ifaceh=17; // Bus interface height
+switchd=17; // Switch diameter
+ifaceh=16; // Bus interface height
 ifacew=12; // Bus interface width
+
+module sink_hole() {
+    depth=2;
+    expansion=10;
+    angle=45;
+    rotate([-90, 0, 0]) translate([0, 0, -depth]) rotate_extrude(convexity = 10) polygon(points=[
+        [0, expansion],
+        [screwhead/2, expansion],
+        [screwhead/2, 0],
+        [screwhole/2, -(screwhead/2 - screwhole/2) / tan(angle)],
+        [screwhole/2, -expansion],
+        [0, -expansion]
+    ]);
+}
 
 module front () {
     union() {
@@ -98,9 +118,7 @@ module back () {
         // - Holes
         for (p = screws) {
             // Screw
-            translate([p[0], height, p[1]]) rotate([90, 0, 0]) cylinder(h = height, d = screwhole);
-            // Screw head
-            translate([p[0], height/2 + 2 * wall, p[1]]) rotate([90, 0, 0]) cylinder(h = screwheadh + wall, d = screwheadd);
+            translate([p[0], height / 2 + wall, p[1]]) sink_hole();
         };
     }
 }
