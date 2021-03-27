@@ -1,1 +1,5 @@
 *.imp_meta
+*.autosave
+*.bak
+3d_models/local
+*.db*
