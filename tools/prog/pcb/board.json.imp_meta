@@ -35,7 +35,7 @@
         "layers": {
             "-1": {
                 "display_mode": "fill",
-                "visible": false
+                "visible": true
             },
             "-100": {
                 "display_mode": "outline",
