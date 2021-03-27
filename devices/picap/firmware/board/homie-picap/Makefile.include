@@ -1,0 +1,17 @@
+# add the common header files to the include path
+INCLUDES += -I$(RIOTBOARD)/common/stm32/include
+
+# configure the serial terminal
+PORT ?= /dev/ttyAMA0
+
+# Configure programmer
+PROGRAMMER ?= stm32flash
+
+# Increase programming speed
+PROG_BAUD ?= 115200
+
+# Setup of programmer and serial is shared between STM32 based boards
+include $(RIOTMAKE)/boards/stm32.inc.mk
+
+# Add reset sequence using handshaking signals
+FFLAGS += -i 18,-17,17:-18,-17,17
