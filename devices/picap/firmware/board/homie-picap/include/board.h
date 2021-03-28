@@ -27,18 +27,19 @@
 extern "C" {
 #endif
 
-#define STDIO_UART_DEV               UART_DEV(0)
+#define STDIO_UART_DEV                UART_DEV(0)
 
-#define CONFIG_ZTIMER_USEC_DEV       TIMER_DEV(0)
-#define CONFIG_ZTIMER_USEC_WIDTH     (16)
-#define CONFIG_ZTIMER_USEC_BASE_FREQ MHZ(1)
+#define CONFIG_ZTIMER_USEC_DEV        TIMER_DEV(0)
+#define CONFIG_ZTIMER_USEC_WIDTH      (16)
+#define CONFIG_ZTIMER_USEC_BASE_FREQ  MHZ(1)
+#define CONFIG_ZTIMER_USEC_ADJUST_SET (15)
 
-#define DOSE_PARAM_UART              UART_DEV(1)
-#define DOSE_PARAM_SENSE_PIN         GPIO_PIN(PORT_A, 4)
+#define DOSE_PARAM_UART               UART_DEV(1)
+#define DOSE_PARAM_SENSE_PIN          GPIO_PIN(PORT_A, 4)
 //#define DOSE_PARAM_BAUDRATE          MHZ(1)
 
-#define LED_TX_GPIO_PIN             GPIO_PIN(PORT_B, 1)
-#define LED_RX_GPIO_PIN             GPIO_PIN(PORT_B, 2)
+#define LED_TX_GPIO_PIN               GPIO_PIN(PORT_B, 2)
+#define LED_RX_GPIO_PIN               GPIO_PIN(PORT_B, 1)
 
 /**
  * @brief   Initialize board specific hardware
