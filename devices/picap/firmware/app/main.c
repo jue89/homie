@@ -123,7 +123,9 @@ static void *_port_thread(void *args)
     while (1) {
         msg_t msg;
         msg_receive(&msg);
+#if IS_ACTIVE(MODULE_PERIPH_WDT)
         wdt_kick();
+#endif
         if (msg.type == BRIDGE_MSG_TYPE_EVENT) {
             /* Some event occured at the driver */
             port->dev->driver->isr(port->dev);
@@ -182,8 +184,10 @@ static bridge_port_t ethos_port;
 int main (void)
 {
     puts("Start WDT");
+#if IS_ACTIVE(MODULE_PERIPH_WDT)
     wdt_setup_reboot(0, WDT_TIME_MS);
     wdt_start();
+#endif
 
     puts("Setup netifs");
     dose_setup(&dose, &dose_params[0], 0);
