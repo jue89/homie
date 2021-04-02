@@ -3257,7 +3257,7 @@
                 },
                 "41bc81b8-0d0d-46ff-b2b8-8d5cf51e64f7": {
                     "component": "abf73ff4-e920-45f6-895e-84ee76ba3872",
-                    "custom_value": "TX",
+                    "custom_value": "RX",
                     "display_all_pads": false,
                     "display_directions": false,
                     "expand": 0,
@@ -3587,7 +3587,7 @@
                 },
                 "df3653a3-45ad-4aa2-8583-73e25810fcff": {
                     "component": "993f1a7d-faeb-44fc-82cc-db7feafab6f2",
-                    "custom_value": "RX",
+                    "custom_value": "TX",
                     "display_all_pads": false,
                     "display_directions": false,
                     "expand": 0,
