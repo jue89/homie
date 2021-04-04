@@ -21,9 +21,29 @@
 #include "cpu.h"
 #include "board.h"
 #include "periph/gpio.h"
+#include "hand_counter.h"
+
+#if IS_ACTIVE(MODULE_SAUL_DEFAULT)
+static const hand_counter_params_t sw_params[] = {
+    {
+        .gpio = SW0_BTN_GPIO_PIN,
+        .mode = GPIO_IN_PU,
+        .debounce_usec = 50000,
+        .name = "BTN0"
+    }
+};
+static hand_counter_t sw[ARRAY_SIZE(sw_params)];
+
+#endif
 
 void board_init(void)
 {
     /* initialize the CPU */
     cpu_init();
+
+#if IS_ACTIVE(MODULE_SAUL_DEFAULT)
+    for (size_t i = 0; i < ARRAY_SIZE(sw_params); i++) {
+        hand_counter_init(&sw[i], &sw_params[i]);
+    }
+#endif
 }

@@ -1,0 +1,4 @@
+FEATURES_REQUIRED += periph_gpio_irq
+USEMODULE += saul
+USEMODULE += saul_reg
+USEMODULE += ztimer_usec

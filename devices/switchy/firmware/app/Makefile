@@ -9,5 +9,6 @@ USEMODULE += periph_gpio_irq
 USEMODULE += periph_pwm
 
 RIOTBASE ?= $(CURDIR)/../../../../firmware/RIOT
-EXTERNAL_BOARD_DIRS = $(CURDIR)/../board
+EXTERNAL_BOARD_DIRS += $(CURDIR)/../board
+EXTERNAL_MODULE_DIRS += $(CURDIR)/../../../../firmware/drivers/hand_counter
 include $(RIOTBASE)/Makefile.include
