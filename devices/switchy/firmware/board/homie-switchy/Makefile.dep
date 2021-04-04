@@ -1,5 +1,6 @@
 ifneq (,$(filter saul_default,$(USEMODULE)))
   USEMODULE += hand_counter
+  USEMODULE += dimmable_led
 endif
 
 ifneq (,$(filter gnrc_netdev_default,$(USEMODULE)))

@@ -22,6 +22,7 @@
 #include "board.h"
 #include "periph/gpio.h"
 #include "hand_counter.h"
+#include "dimmable_led.h"
 
 #if IS_ACTIVE(MODULE_SAUL_DEFAULT)
 static const hand_counter_params_t sw_params[] = {
@@ -34,6 +35,15 @@ static const hand_counter_params_t sw_params[] = {
 };
 static hand_counter_t sw[ARRAY_SIZE(sw_params)];
 
+static const dimmable_led_params_t led_params[] = {
+    {
+        .dev = SW0_LED_PWM_DEV,
+        .ch = SW0_LED_PWM_CH,
+        .freq = 256,
+        .name = "LED0"
+    }
+};
+static dimmable_led_t led[ARRAY_SIZE(led_params)];
 #endif
 
 void board_init(void)
@@ -44,6 +54,10 @@ void board_init(void)
 #if IS_ACTIVE(MODULE_SAUL_DEFAULT)
     for (size_t i = 0; i < ARRAY_SIZE(sw_params); i++) {
         hand_counter_init(&sw[i], &sw_params[i]);
+    }
+
+    for (size_t i = 0; i < ARRAY_SIZE(led_params); i++) {
+        dimmable_led_init(&led[i], &led_params[i]);
     }
 #endif
 }

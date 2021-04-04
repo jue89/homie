@@ -11,4 +11,5 @@ USEMODULE += periph_pwm
 RIOTBASE ?= $(CURDIR)/../../../../firmware/RIOT
 EXTERNAL_BOARD_DIRS += $(CURDIR)/../board
 EXTERNAL_MODULE_DIRS += $(CURDIR)/../../../../firmware/drivers/hand_counter
+EXTERNAL_MODULE_DIRS += $(CURDIR)/../../../../firmware/drivers/dimmable_led
 include $(RIOTBASE)/Makefile.include
