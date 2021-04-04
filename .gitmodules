@@ -1,3 +1,4 @@
 [submodule "firmware/RIOT"]
 	path = firmware/RIOT
-	url = https://github.com/RIOT-OS/RIOT.git
+	url = https://github.com/jue89/RIOT.git
+	branch = feature/saul_observer_callback
