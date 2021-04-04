@@ -18,4 +18,4 @@ PROG_BAUD ?= 115200
 include $(RIOTMAKE)/boards/stm32.inc.mk
 
 # Add reset sequence using handshaking signals
-FFLAGS += -i -rts,dtr,-dtr:rts,dtr,-dtr
+FFLAGS += -i -rts,dtr,-dtr,:rts,dtr,-dtr
