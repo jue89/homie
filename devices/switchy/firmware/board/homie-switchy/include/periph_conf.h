@@ -24,9 +24,19 @@
 #define CONFIG_BOARD_HAS_HSE     1
 #define CLOCK_HSE                MHZ(12)
 
-/* We want the board to run with a core clock of 48MHz */
+#ifndef CONFIG_CLOCK_PLL_PREDIV
 #define CONFIG_CLOCK_PLL_PREDIV  (1)
+#endif
+
+#ifndef CONFIG_CLOCK_PLL_MUL
 #define CONFIG_CLOCK_PLL_MUL     (4)
+#endif
+
+/* We want the board to run with a core clock of 48MHz max */
+#if CONFIG_CLOCK_PLL_MUL > 4
+#undef CONFIG_CLOCK_PLL_MUL
+#define CONFIG_CLOCK_PLL_MUL     (4)
+#endif
 
 #include "periph_cpu.h"
 #include "clk_conf.h"
