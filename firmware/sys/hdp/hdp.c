@@ -9,7 +9,8 @@
 #include "nanocbor/nanocbor.h"
 
 #define MSG_TYPE_SEND_STATE 0xff01
-#define MSG_TYPE_SAUL_EVENT 0xff02
+#define MSG_TYPE_SEND_INFO_AND_STATE 0xff02
+#define MSG_TYPE_SAUL_EVENT 0xff10
 
 static int _send_udp (hdp_ctx_t *ctx, gnrc_pktsnip_t *pkt, const ipv6_addr_t *dst)
 {
@@ -63,6 +64,18 @@ static void _publish_state(hdp_ctx_t *ctx, ipv6_addr_t *dst, int id)
     _send_udp(ctx, pkt, dst);
 }
 
+static void _publish_info(hdp_ctx_t *ctx, ipv6_addr_t *dst)
+{
+    gnrc_pktsnip_t *pkt;
+    nanocbor_encoder_t cbor;
+
+    hdp_pkt_enc_info_init(&pkt, &cbor);
+    for (int i = 0; hdp_pkt_enc_info_add(&cbor, i) == 0; i++);
+    hdp_pkt_enc_info_finish(&pkt, &cbor);
+
+    _send_udp(ctx, pkt, dst);
+}
+
 static void _schedule_msg_timer(ztimer_t *timer, msg_t *msg, uint32_t base_offset)
 {
     uint32_t offset = random_uint32_range(1 * base_offset, 2 * base_offset);
@@ -98,7 +111,7 @@ static void *_hdp_thread(void *arg)
     saul_observer_t observer[ctx->saul_dev_count];
     msg_t observer_msg = { .type = MSG_TYPE_SAUL_EVENT };
     ztimer_t publish_timer;
-    msg_t publish_msg = { .type = MSG_TYPE_SEND_STATE };
+    msg_t publish_msg = { .type = MSG_TYPE_SEND_INFO_AND_STATE };
 
     /* setup multicast address */
     ipv6_addr_from_str(&multicast, ctx->params->multicast_addr);
@@ -115,7 +128,11 @@ static void *_hdp_thread(void *arg)
     while (1) {
         msg_t msg;
         msg_receive(&msg);
-        if (msg.type == MSG_TYPE_SEND_STATE) {
+        if (msg.type == MSG_TYPE_SEND_STATE || msg.type == MSG_TYPE_SEND_INFO_AND_STATE) {
+            if (msg.type == MSG_TYPE_SEND_INFO_AND_STATE) {
+                _publish_info(ctx, &multicast);
+                publish_msg.type = MSG_TYPE_SEND_STATE;
+            }
             _publish_state(ctx, &multicast, -1);
             _schedule_msg_timer(&publish_timer, &publish_msg, CONFIG_HDP_STATE_PUBLISH_INTERVAL);
         } else if (msg.type == MSG_TYPE_SAUL_EVENT) {
