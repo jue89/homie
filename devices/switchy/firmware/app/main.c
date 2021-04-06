@@ -1,31 +1,19 @@
 #include <stdio.h>
-#include "board.h"
-#include "ztimer.h"
-#include "periph/gpio.h"
-#include "periph/pwm.h"
+#include "hdp.h"
+#include "shell.h"
+#include "shell_commands.h"
+#include "net/gnrc/pktdump.h"
+#include "net/gnrc.h"
 
-static void btn_press (void* arg)
-{
-    (void) arg;
-    puts("BTN");
-}
+static const hdp_params_t hdp_params = HDP_PARAMS_INIT;
+static hdp_ctx_t hdp_ctx;
 
 int main(void)
 {
-    puts("Hello World!");
+    hdp_init(&hdp_ctx, &hdp_params);
 
-    printf("You are running RIOT on a(n) %s board.\n", RIOT_BOARD);
-    printf("This board features a(n) %s MCU.\n", RIOT_MCU);
-
-    gpio_init_int(SW0_BTN_GPIO_PIN, GPIO_IN_PU, GPIO_FALLING, btn_press, NULL);
-    pwm_init(SW0_LED_PWM_DEV, PWM_LEFT, 256, 65535);
-    pwm_poweron(SW0_LED_PWM_DEV);
-    pwm_set(SW0_LED_PWM_DEV, SW0_LED_PWM_CH, 1200);
-
-    while (1) {
-        puts("Ping");
-        ztimer_sleep(ZTIMER_USEC, 1000000);
-    }
+    char line_buf[SHELL_DEFAULT_BUFSIZE];
+    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
 
     return 0;
 }

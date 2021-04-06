@@ -1,0 +1,9 @@
+USEMODULE += saul_observer
+USEMODULE += ztimer_msec
+USEMODULE += gnrc_pktbuf
+USEMODULE += gnrc_netapi
+USEMODULE += gnrc_ipv6
+USEMODULE += gnrc_udp
+USEMODULE += random
+
+USEPKG += nanocbor

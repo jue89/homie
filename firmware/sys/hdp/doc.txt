@@ -1,0 +1,40 @@
+REQUEST INFO C -> S
+(55) {
+    /0: <bstr> CPUID,/
+    /2: [<id>, ...]/
+}
+
+PUBLISH INFO S -> C
+(56) {
+    0: <bstr> CPUID,
+    1: <uint> UPTIME_MS,
+    2: {
+        <id>: [<tstr> name, <tsrt> type],
+        ...
+    }
+}
+
+REQUEST STATE C -> S
+(57) {
+    /0: <bstr> CPUID,/
+    /2: [<id>, ...]/
+}
+
+PUBLISH STATE S -> C
+(58) {
+    0: <bstr> CPUID,
+    1: <uint> UPTIME_MS,
+    2: {
+        <id>: [scale, v[0], v[1], v[2]],
+        ...
+    }
+}
+
+SET STATE C -> S
+(59) {
+    /0: <bstr> CPUID,/
+    2: {
+        <id>: [scale, v[0], v[1], v[2]],
+        ...
+    }
+}
