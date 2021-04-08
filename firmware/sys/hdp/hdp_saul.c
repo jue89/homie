@@ -32,11 +32,11 @@ int hdp_cbor_write_saul(saul_reg_t *dev, nanocbor_value_t *cbor)
 
     /* read from cbor array */
     rc = nanocbor_enter_array(cbor, &array);
-    if (rc != NANOCBOR_OK) {
+    if (rc < 0) {
         return rc;
     }
     rc = nanocbor_get_int8(&array, &dat.scale);
-    if (rc < 9) {
+    if (rc < 0) {
         return rc;
     }
     for (i = 0; i < PHYDAT_DIM; i++) {

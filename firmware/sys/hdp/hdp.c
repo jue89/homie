@@ -1,5 +1,6 @@
 #include "hdp.h"
 #include "hdp_pkt.h"
+#include "hdp_saul.h"
 #include "thread.h"
 #include "random.h"
 #include "saul_observer.h"
@@ -8,23 +9,26 @@
 #include "net/gnrc/ipv6.h"
 #include "nanocbor/nanocbor.h"
 
+#define ENABLE_DEBUG 1
+#include "debug.h"
+
 #define MSG_TYPE_SEND_STATE 0xff01
 #define MSG_TYPE_SEND_INFO_AND_STATE 0xff02
 #define MSG_TYPE_SAUL_EVENT 0xff10
 
-static int _send_udp (hdp_ctx_t *ctx, gnrc_pktsnip_t *pkt, const ipv6_addr_t *dst)
+static int _send_udp (hdp_ctx_t *ctx, gnrc_pktsnip_t *pkt, const ipv6_addr_t *dst_addr, uint16_t dst_port)
 {
     gnrc_pktsnip_t *udp, *ip, *netif;
 
     /* UDP */
-    udp = gnrc_udp_hdr_build(pkt, ctx->params->port_server, ctx->params->port_client);
+    udp = gnrc_udp_hdr_build(pkt, ctx->params->port_server, dst_port);
     if (udp == NULL) {
         gnrc_pktbuf_release(pkt);
         return -ENOMEM;
     }
 
     /* IPv6 */
-    ip = gnrc_ipv6_hdr_build(udp, NULL, dst);
+    ip = gnrc_ipv6_hdr_build(udp, NULL, dst_addr);
     if (ip == NULL) {
         gnrc_pktbuf_release(udp);
         return -ENOMEM;
@@ -48,7 +52,7 @@ static int _send_udp (hdp_ctx_t *ctx, gnrc_pktsnip_t *pkt, const ipv6_addr_t *ds
     return 0;
 }
 
-static void _publish_state(hdp_ctx_t *ctx, ipv6_addr_t *dst, int id)
+static void _publish_state(hdp_ctx_t *ctx, const ipv6_addr_t *dst_addr, uint16_t dst_port, int id)
 {
     gnrc_pktsnip_t *pkt;
     nanocbor_encoder_t cbor;
@@ -61,10 +65,10 @@ static void _publish_state(hdp_ctx_t *ctx, ipv6_addr_t *dst, int id)
     }
     hdp_pkt_enc_state_finish(&pkt, &cbor);
 
-    _send_udp(ctx, pkt, dst);
+    _send_udp(ctx, pkt, dst_addr, dst_port);
 }
 
-static void _publish_info(hdp_ctx_t *ctx, ipv6_addr_t *dst)
+static void _publish_info(hdp_ctx_t *ctx, const ipv6_addr_t *dst_addr, uint16_t dst_port)
 {
     gnrc_pktsnip_t *pkt;
     nanocbor_encoder_t cbor;
@@ -73,7 +77,7 @@ static void _publish_info(hdp_ctx_t *ctx, ipv6_addr_t *dst)
     for (int i = 0; hdp_pkt_enc_info_add(&cbor, i) == 0; i++);
     hdp_pkt_enc_info_finish(&pkt, &cbor);
 
-    _send_udp(ctx, pkt, dst);
+    _send_udp(ctx, pkt, dst_addr, dst_port);
 }
 
 static void _schedule_msg_timer(ztimer_t *timer, msg_t *msg, uint32_t base_offset)
@@ -103,6 +107,21 @@ static int _saul_get_id(saul_reg_t *candidate)
     return i;
 }
 
+static void _get_sender(gnrc_pktsnip_t *pkt, ipv6_addr_t **addr, uint16_t *port)
+{
+    gnrc_pktsnip_t *udp, *ipv6;
+    ipv6_hdr_t *ipv6_hdr;
+    udp_hdr_t *udp_hdr;
+
+    ipv6 = gnrc_pktsnip_search_type(pkt, GNRC_NETTYPE_IPV6);
+    ipv6_hdr = (ipv6_hdr_t *) ipv6->data;
+    *addr = &ipv6_hdr->src;
+
+    udp = gnrc_pktsnip_search_type(pkt, GNRC_NETTYPE_UDP);
+    udp_hdr = (udp_hdr_t *) udp->data;
+    *port = byteorder_ntohs (udp_hdr->src_port);
+}
+
 static void *_hdp_thread(void *arg)
 {
     hdp_ctx_t * ctx = (hdp_ctx_t *) arg;
@@ -112,6 +131,7 @@ static void *_hdp_thread(void *arg)
     msg_t observer_msg = { .type = MSG_TYPE_SAUL_EVENT };
     ztimer_t publish_timer;
     msg_t publish_msg = { .type = MSG_TYPE_SEND_INFO_AND_STATE };
+    gnrc_netreg_entry_t netreg;
 
     /* setup multicast address */
     ipv6_addr_from_str(&multicast, ctx->params->multicast_addr);
@@ -125,22 +145,47 @@ static void *_hdp_thread(void *arg)
     /* kick-off publish state timer */
     _schedule_msg_timer(&publish_timer, &publish_msg, CONFIG_HDP_STARTUP_PUBLISH_DELAY);
 
+    /* bind in UDP port */
+    gnrc_netreg_entry_init_pid(&netreg, ctx->params->port_server, thread_getpid());
+    gnrc_netreg_register(GNRC_NETTYPE_UDP, &netreg);
+
     while (1) {
         msg_t msg;
         msg_receive(&msg);
         if (msg.type == MSG_TYPE_SEND_STATE || msg.type == MSG_TYPE_SEND_INFO_AND_STATE) {
             if (msg.type == MSG_TYPE_SEND_INFO_AND_STATE) {
-                _publish_info(ctx, &multicast);
+                _publish_info(ctx, &multicast, ctx->params->port_client);
                 publish_msg.type = MSG_TYPE_SEND_STATE;
             }
-            _publish_state(ctx, &multicast, -1);
+            _publish_state(ctx, &multicast, ctx->params->port_client, -1);
             _schedule_msg_timer(&publish_timer, &publish_msg, CONFIG_HDP_STATE_PUBLISH_INTERVAL);
         } else if (msg.type == MSG_TYPE_SAUL_EVENT) {
             int id = _saul_get_id(msg.content.ptr);
             if (id < 0) {
                 continue;
             }
-            _publish_state(ctx, &multicast, id);
+            _publish_state(ctx, &multicast, ctx->params->port_client, id);
+        } else if (msg.type == GNRC_NETAPI_MSG_TYPE_RCV) {
+            gnrc_pktsnip_t *pkt = msg.content.ptr;
+            nanocbor_value_t msg;
+            nanocbor_decoder_init(&msg, pkt->data, pkt->size);
+            int type = hdp_pkt_dec_type(&msg);
+            if (type < 0) {
+                DEBUG("DROP PACKET. REASON: %d\n", type);
+            } else if (type == HDP_TAG_INFO_REQUEST) {
+                ipv6_addr_t *dst_addr;
+                uint16_t dst_port;
+                _get_sender(pkt, &dst_addr, &dst_port);
+                _publish_info(ctx, dst_addr, dst_port);
+            } else if (type == HDP_TAG_STATE_REQUEST) {
+                /* send state to requester */
+                /* TODO */
+            } else if (type == HDP_TAG_STATE_SET) {
+                hdp_pkt_dec_state_set(&msg);
+            } else {
+                DEBUG("UNKNOWN TYPE: %d\n", type);
+            }
+            gnrc_pktbuf_release(pkt);
         }
     }
 
