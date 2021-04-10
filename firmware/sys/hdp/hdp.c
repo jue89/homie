@@ -52,16 +52,18 @@ static int _send_udp (hdp_ctx_t *ctx, gnrc_pktsnip_t *pkt, const ipv6_addr_t *ds
     return 0;
 }
 
-static void _publish_state(hdp_ctx_t *ctx, const ipv6_addr_t *dst_addr, uint16_t dst_port, int id)
+static void _publish_state(hdp_ctx_t *ctx, const ipv6_addr_t *dst_addr, uint16_t dst_port, int8_t *ids)
 {
     gnrc_pktsnip_t *pkt;
     nanocbor_encoder_t cbor;
 
     hdp_pkt_enc_state_init(&pkt, &cbor);
-    if (id < 0) {
+    if (ids == NULL) {
         for (int i = 0; hdp_pkt_enc_state_add(&cbor, i) == 0; i++);
     } else {
-        hdp_pkt_enc_state_add(&cbor, id);
+        for (; *ids >= 0; ids++) {
+            hdp_pkt_enc_state_add(&cbor, *ids);
+        }
     }
     hdp_pkt_enc_state_finish(&pkt, &cbor);
 
@@ -155,16 +157,18 @@ static void *_hdp_thread(void *arg)
         if (msg.type == MSG_TYPE_SEND_STATE || msg.type == MSG_TYPE_SEND_INFO_AND_STATE) {
             if (msg.type == MSG_TYPE_SEND_INFO_AND_STATE) {
                 _publish_info(ctx, &multicast, ctx->params->port_client);
+                /* just publish the state next time */
                 publish_msg.type = MSG_TYPE_SEND_STATE;
             }
-            _publish_state(ctx, &multicast, ctx->params->port_client, -1);
+            _publish_state(ctx, &multicast, ctx->params->port_client, NULL);
             _schedule_msg_timer(&publish_timer, &publish_msg, CONFIG_HDP_STATE_PUBLISH_INTERVAL);
         } else if (msg.type == MSG_TYPE_SAUL_EVENT) {
             int id = _saul_get_id(msg.content.ptr);
             if (id < 0) {
                 continue;
             }
-            _publish_state(ctx, &multicast, ctx->params->port_client, id);
+            int8_t ids[] = {id, -1};
+            _publish_state(ctx, &multicast, ctx->params->port_client, ids);
         } else if (msg.type == GNRC_NETAPI_MSG_TYPE_RCV) {
             gnrc_pktsnip_t *pkt = msg.content.ptr;
             nanocbor_value_t msg;
