@@ -25,6 +25,7 @@ int hdp_pkt_enc_state_finish(gnrc_pktsnip_t **pkt, nanocbor_encoder_t *cbor);
 
 int hdp_pkt_dec_type(nanocbor_value_t *cbor);
 int hdp_pkt_dec_state_set(nanocbor_value_t *cbor);
+int hdp_pkt_dec_state_req(nanocbor_value_t *cbor, int8_t ids[], size_t ids_len);
 
 #ifdef __cplusplus
 }

@@ -228,3 +228,39 @@ int hdp_pkt_dec_state_set(nanocbor_value_t *msg)
 
     return 0;
 }
+
+int hdp_pkt_dec_state_req(nanocbor_value_t *msg, int8_t ids[], size_t ids_len)
+{
+    nanocbor_value_t item, array;
+    int rc;
+    size_t i;
+
+    /* open array with ids */
+    rc = _get_msg_item(msg, &item, 2);
+    if (rc < 0) {
+        return rc;
+    }
+
+    rc = nanocbor_enter_array(&item, &array);
+    if (rc < 0) {
+        return rc;
+    }
+
+    for (i = 0; !nanocbor_at_end(&array) && i < ids_len - 1;) {
+        int8_t id;
+        rc = nanocbor_get_int8(&array, &id);
+        if (rc < 0) {
+            /* Skip non-int8 values */
+            nanocbor_skip(&array);
+            continue;
+        }
+        if (id < 0 || saul_reg_find_nth(id) == NULL) {
+            /* Skip invalid ids */
+            continue;
+        }
+        ids[i++] = id;
+    }
+    ids[i] = -1;
+
+    return 0;
+}

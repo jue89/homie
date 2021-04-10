@@ -163,11 +163,12 @@ static void *_hdp_thread(void *arg)
             _publish_state(ctx, &multicast, ctx->params->port_client, NULL);
             _schedule_msg_timer(&publish_timer, &publish_msg, CONFIG_HDP_STATE_PUBLISH_INTERVAL);
         } else if (msg.type == MSG_TYPE_SAUL_EVENT) {
+            int8_t ids[] = {-1, -1};
             int id = _saul_get_id(msg.content.ptr);
             if (id < 0) {
                 continue;
             }
-            int8_t ids[] = {id, -1};
+            ids[0] = id;
             _publish_state(ctx, &multicast, ctx->params->port_client, ids);
         } else if (msg.type == GNRC_NETAPI_MSG_TYPE_RCV) {
             gnrc_pktsnip_t *pkt = msg.content.ptr;
@@ -182,8 +183,15 @@ static void *_hdp_thread(void *arg)
                 _get_sender(pkt, &dst_addr, &dst_port);
                 _publish_info(ctx, dst_addr, dst_port);
             } else if (type == HDP_TAG_STATE_REQUEST) {
-                /* send state to requester */
-                /* TODO */
+                int8_t ids[ctx->saul_dev_count];
+                ipv6_addr_t *dst_addr;
+                uint16_t dst_port;
+                _get_sender(pkt, &dst_addr, &dst_port);
+                if (hdp_pkt_dec_state_req(&msg, ids, sizeof(ids)) == 0) {
+                    _publish_state(ctx, dst_addr, dst_port, ids);
+                } else {
+                    _publish_state(ctx, dst_addr, dst_port, NULL);
+                }
             } else if (type == HDP_TAG_STATE_SET) {
                 hdp_pkt_dec_state_set(&msg);
             } else {
