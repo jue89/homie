@@ -200,7 +200,11 @@ int hdp_pkt_dec_state_set(nanocbor_value_t *msg)
     int rc;
 
     /* open map with states */
-    _get_msg_item(msg, &item, 2);
+    rc = _get_msg_item(msg, &item, 2);
+    if (rc < 0) {
+        return rc;
+    }
+
     rc = nanocbor_enter_map(&item, &map);
     if (rc < 0) {
         return rc;
@@ -208,7 +212,7 @@ int hdp_pkt_dec_state_set(nanocbor_value_t *msg)
 
     while (!nanocbor_at_end(&map)) {
         uint8_t id;
-        int rc = nanocbor_get_uint8(&map, &id);
+        rc = nanocbor_get_uint8(&map, &id);
         if (rc < 0) {
             /* Skip invalid entries*/
             nanocbor_skip(&map);
