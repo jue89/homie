@@ -220,6 +220,7 @@ int hdp_pkt_dec_state_set(nanocbor_value_t *msg)
             saul_reg_t * dev = saul_reg_find_nth(id);
             if (dev == NULL) {
                 /* Invalid SAUL device */
+                nanocbor_skip(&map);
                 continue;
             }
             hdp_cbor_write_saul(dev, &map);

@@ -9,7 +9,7 @@
 #define HDP_TAG_INFO_PUBLISH (56)
 #define HDP_TAG_STATE_REQUEST (57)
 #define HDP_TAG_STATE_PUBLISH (58)
-#define HDP_TAG_STATE_SET (58)
+#define HDP_TAG_STATE_SET (59)
 
 #ifdef __cplusplus
 extern "C" {

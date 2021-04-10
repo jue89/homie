@@ -37,7 +37,7 @@ int hdp_cbor_write_saul(saul_reg_t *dev, nanocbor_value_t *cbor)
     }
     rc = nanocbor_get_int8(&array, &dat.scale);
     if (rc < 0) {
-        return rc;
+        goto exit;
     }
     for (i = 0; i < PHYDAT_DIM; i++) {
         if (nanocbor_at_end(&array)) {
@@ -45,15 +45,16 @@ int hdp_cbor_write_saul(saul_reg_t *dev, nanocbor_value_t *cbor)
         } else {
             rc = nanocbor_get_int16(&array, &dat.val[i]);
             if (rc < 0) {
-                return rc;
+                goto exit;
             }
         }
     }
-    nanocbor_leave_container(cbor, &array);
 
     /* write to SAUL device */
     rc = saul_reg_write(dev, &dat);
 
+exit:
+    nanocbor_leave_container(cbor, &array);
     return rc;
 }
 

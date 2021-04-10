@@ -1,7 +1,6 @@
 REQUEST INFO C -> S
 (55) {
     /0: <bstr> CPUID,/
-    /2: [<id>, ...]/
 }
 
 PUBLISH INFO S -> C
@@ -9,7 +8,7 @@ PUBLISH INFO S -> C
     0: <bstr> CPUID,
     1: <uint> UPTIME_MS,
     2: {
-        <id>: [<tstr> name, <tsrt> type],
+        <id>: [<tstr> name, <tsrt> type, <bool> readable, <bool> writable],
         ...
     }
 }

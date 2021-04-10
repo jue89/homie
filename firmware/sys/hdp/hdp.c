@@ -183,7 +183,7 @@ static void *_hdp_thread(void *arg)
                 _get_sender(pkt, &dst_addr, &dst_port);
                 _publish_info(ctx, dst_addr, dst_port);
             } else if (type == HDP_TAG_STATE_REQUEST) {
-                int8_t ids[ctx->saul_dev_count];
+                int8_t ids[ctx->saul_dev_count + 1];
                 ipv6_addr_t *dst_addr;
                 uint16_t dst_port;
                 _get_sender(pkt, &dst_addr, &dst_port);
