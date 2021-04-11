@@ -2,13 +2,14 @@
 #define HDP_H
 
 #include "net/gnrc/netif.h"
+#include "net/gnrc/udp.h"
 
 #ifndef CONFIG_HDP_MSG_QUEUE_SIZE
 #define HDP_MSG_QUEUE_SIZE (16)
 #endif
 
 #ifndef HDP_THREAD_PRIO
-#define HDP_THREAD_PRIO (9)
+#define HDP_THREAD_PRIO (GNRC_UDP_PRIO + 1)
 #endif
 
 #ifndef HDP_THREAD_STACK_SIZE
