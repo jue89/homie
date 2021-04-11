@@ -1,5 +1,6 @@
 USEMODULE += saul_observer
 USEMODULE += ztimer_msec
+USEMODULE += ztimer_now64
 USEMODULE += gnrc_pktbuf
 USEMODULE += gnrc_netapi
 USEMODULE += gnrc_ipv6
