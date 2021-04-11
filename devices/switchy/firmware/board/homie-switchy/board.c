@@ -42,12 +42,12 @@
 
 #if IS_ACTIVE(MODULE_SAUL_DEFAULT)
 static const hand_counter_params_t sw_params[] = {
-#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW2)
+#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW0)
     {
-        .gpio = SW2_BTN_GPIO_PIN,
+        .gpio = SW0_BTN_GPIO_PIN,
         .mode = GPIO_IN_PU,
         .debounce_usec = CONFIG_BOARD_HOMIE_SWITCHY_DEBOUNCE,
-        .name = "BTN2"
+        .name = "BTN0"
     },
 #endif
 #if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW1)
@@ -58,20 +58,12 @@ static const hand_counter_params_t sw_params[] = {
         .name = "BTN1"
     },
 #endif
-#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW0)
+#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW2)
     {
-        .gpio = SW0_BTN_GPIO_PIN,
+        .gpio = SW2_BTN_GPIO_PIN,
         .mode = GPIO_IN_PU,
         .debounce_usec = CONFIG_BOARD_HOMIE_SWITCHY_DEBOUNCE,
-        .name = "BTN0"
-    },
-#endif
-#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW4)
-    {
-        .gpio = SW4_BTN_GPIO_PIN,
-        .mode = GPIO_IN_PU,
-        .debounce_usec = CONFIG_BOARD_HOMIE_SWITCHY_DEBOUNCE,
-        .name = "BTN4"
+        .name = "BTN2"
     },
 #endif
 #if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW3)
@@ -82,16 +74,24 @@ static const hand_counter_params_t sw_params[] = {
         .name = "BTN3"
     },
 #endif
+#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW4)
+    {
+        .gpio = SW4_BTN_GPIO_PIN,
+        .mode = GPIO_IN_PU,
+        .debounce_usec = CONFIG_BOARD_HOMIE_SWITCHY_DEBOUNCE,
+        .name = "BTN4"
+    },
+#endif
 };
 static hand_counter_t sw[ARRAY_SIZE(sw_params)];
 
 static const dimmable_led_params_t led_params[] = {
-#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW2)
+#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW0)
     {
-        .dev = SW2_LED_PWM_DEV,
-        .ch = SW2_LED_PWM_CH,
+        .dev = SW0_LED_PWM_DEV,
+        .ch = SW0_LED_PWM_CH,
         .freq = CONFIG_BOARD_HOMIE_SWITCHY_FREQ,
-        .name = "LED2"
+        .name = "LED0"
     },
 #endif
 #if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW1)
@@ -102,20 +102,12 @@ static const dimmable_led_params_t led_params[] = {
         .name = "LED1"
     },
 #endif
-#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW0)
+#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW2)
     {
-        .dev = SW0_LED_PWM_DEV,
-        .ch = SW0_LED_PWM_CH,
+        .dev = SW2_LED_PWM_DEV,
+        .ch = SW2_LED_PWM_CH,
         .freq = CONFIG_BOARD_HOMIE_SWITCHY_FREQ,
-        .name = "LED0"
-    },
-#endif
-#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW4)
-    {
-        .dev = SW4_LED_PWM_DEV,
-        .ch = SW4_LED_PWM_CH,
-        .freq = CONFIG_BOARD_HOMIE_SWITCHY_FREQ,
-        .name = "LED4"
+        .name = "LED2"
     },
 #endif
 #if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW3)
@@ -124,6 +116,14 @@ static const dimmable_led_params_t led_params[] = {
         .ch = SW3_LED_PWM_CH,
         .freq = CONFIG_BOARD_HOMIE_SWITCHY_FREQ,
         .name = "LED3"
+    },
+#endif
+#if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW4)
+    {
+        .dev = SW4_LED_PWM_DEV,
+        .ch = SW4_LED_PWM_CH,
+        .freq = CONFIG_BOARD_HOMIE_SWITCHY_FREQ,
+        .name = "LED4"
     },
 #endif
 };
