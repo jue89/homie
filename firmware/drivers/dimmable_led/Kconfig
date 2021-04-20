@@ -1,0 +1,14 @@
+menuconfig KCONFIG_DIMMABLE_LED
+    bool "Configure dimmable_led driver"
+
+if KCONFIG_DIMMABLE_LED
+
+config CONFIG_DIMMABLE_LED_STEP_SIZE
+    int "Step size"
+    default 16
+
+config CONFIG_DIMMABLE_LED_STEP_DURATION
+    int "Duration of one step in ms"
+    default 40
+
+endif
