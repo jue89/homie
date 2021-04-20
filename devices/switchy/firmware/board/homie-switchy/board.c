@@ -88,42 +88,52 @@ static hand_counter_t sw[ARRAY_SIZE(sw_params)];
 static const dimmable_led_params_t led_params[] = {
 #if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW0)
     {
-        .dev = SW0_LED_PWM_DEV,
-        .ch = SW0_LED_PWM_CH,
         .freq = CONFIG_BOARD_HOMIE_SWITCHY_FREQ,
-        .name = "LED0"
+        .name = "LED0",
+        .ch = {
+            { .dev = SW0_LED_PWM_DEV, .no = SW0_LED_PWM_CH },
+            { .dev = PWM_UNDEF }
+        }
     },
 #endif
 #if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW1)
     {
-        .dev = SW1_LED_PWM_DEV,
-        .ch = SW1_LED_PWM_CH,
         .freq = CONFIG_BOARD_HOMIE_SWITCHY_FREQ,
-        .name = "LED1"
+        .name = "LED1",
+        .ch = {
+            { .dev = SW1_LED_PWM_DEV, .no = SW1_LED_PWM_CH },
+            { .dev = PWM_UNDEF }
+        }
     },
 #endif
 #if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW2)
     {
-        .dev = SW2_LED_PWM_DEV,
-        .ch = SW2_LED_PWM_CH,
         .freq = CONFIG_BOARD_HOMIE_SWITCHY_FREQ,
-        .name = "LED2"
+        .name = "LED2",
+        .ch = {
+            { .dev = SW2_LED_PWM_DEV, .no = SW2_LED_PWM_CH },
+            { .dev = PWM_UNDEF }
+        }
     },
 #endif
 #if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW3)
     {
-        .dev = SW3_LED_PWM_DEV,
-        .ch = SW3_LED_PWM_CH,
         .freq = CONFIG_BOARD_HOMIE_SWITCHY_FREQ,
-        .name = "LED3"
+        .name = "LED3",
+        .ch = {
+            { .dev = SW3_LED_PWM_DEV, .no = SW3_LED_PWM_CH },
+            { .dev = PWM_UNDEF }
+        }
     },
 #endif
 #if IS_ACTIVE(CONFIG_BOARD_HOMIE_SWITCHY_SW4)
     {
-        .dev = SW4_LED_PWM_DEV,
-        .ch = SW4_LED_PWM_CH,
         .freq = CONFIG_BOARD_HOMIE_SWITCHY_FREQ,
-        .name = "LED4"
+        .name = "LED4",
+        .ch = {
+            { .dev = SW4_LED_PWM_DEV, .no = SW4_LED_PWM_CH },
+            { .dev = PWM_UNDEF }
+        }
     },
 #endif
 };

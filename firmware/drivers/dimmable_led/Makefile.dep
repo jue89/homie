@@ -1,3 +1,4 @@
 FEATURES_REQUIRED += periph_pwm
 USEMODULE += saul
 USEMODULE += saul_reg
+USEMODULE += ztimer_msec

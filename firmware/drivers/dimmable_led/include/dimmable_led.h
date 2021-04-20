@@ -4,6 +4,15 @@
 #include "saul_reg.h"
 #include "phydat.h"
 #include "periph/pwm.h"
+#include "ztimer.h"
+
+#ifndef CONFIG_DIMMABLE_LED_STEP_SIZE
+#define CONFIG_DIMMABLE_LED_STEP_SIZE 8
+#endif
+
+#ifndef CONFIG_DIMMABLE_LED_STEP_DURATION
+#define CONFIG_DIMMABLE_LED_STEP_DURATION 40
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -11,15 +20,21 @@ extern "C" {
 
 typedef struct {
     pwm_t dev;
+    uint8_t no;
+} dimmable_led_ch_t;
+
+typedef struct {
     uint32_t freq;
-    uint8_t ch;
     const char * name;
+    const dimmable_led_ch_t ch[PHYDAT_DIM];
 } dimmable_led_params_t;
 
 typedef struct {
-    const dimmable_led_params_t * params;
-    phydat_t state;
     saul_reg_t saul_dev;
+    const dimmable_led_params_t * params;
+    uint8_t setpoint[PHYDAT_DIM];
+    uint8_t val[PHYDAT_DIM];
+    ztimer_t timer;
 } dimmable_led_t;
 
 int dimmable_led_init(dimmable_led_t * led, const dimmable_led_params_t * params);

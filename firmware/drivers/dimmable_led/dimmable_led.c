@@ -20,46 +20,75 @@ static const uint8_t _pwmtable[256] = {
   215,218,220,223,225,228,231,233,236,239,241,244,247,249,252,255
 };
 
-static void _update_pwm(dimmable_led_t * led)
+static void _update_pwm(void *arg)
 {
-    while (led->state.scale > 0) {
-        led->state.val[0] *= 10;
-        led->state.scale -= 1;
+    dimmable_led_t *led = (dimmable_led_t *) arg;
+    size_t dim;
+    bool schedule_update = false;
+
+    for (dim = 0; dim < PHYDAT_DIM && led->params->ch[dim].dev != PWM_UNDEF; dim++) {
+        if (led->val[dim] > led->setpoint[dim]) {
+            /* LED gets darker */
+            if (led->val[dim] - led->setpoint[dim] < CONFIG_DIMMABLE_LED_STEP_SIZE) {
+                led->val[dim] = led->setpoint[dim];
+            } else {
+                led->val[dim] -= CONFIG_DIMMABLE_LED_STEP_SIZE;
+                schedule_update = true;
+            }
+        } else if (led->val[dim] < led->setpoint[dim]) {
+            /* LED gets brigther */
+            if (led->setpoint[dim] - led->val[dim] < CONFIG_DIMMABLE_LED_STEP_SIZE) {
+                led->val[dim] = led->setpoint[dim];
+            } else {
+                led->val[dim] += CONFIG_DIMMABLE_LED_STEP_SIZE;
+                schedule_update = true;
+            }
+        } else {
+            /* LED reached its setpoint */
+            continue;
+        }
+
+        pwm_set(led->params->ch[dim].dev, led->params->ch[dim].no, _pwmtable[led->val[dim]]);
     }
 
-    while (led->state.scale < 0) {
-        led->state.val[0] /= 10;
-        led->state.scale += 1;
+    if (schedule_update) {
+        ztimer_set(ZTIMER_MSEC, &led->timer, CONFIG_DIMMABLE_LED_STEP_DURATION);
     }
-
-    if (led->state.val[0] < 0) {
-        led->state.val[0] = 0;
-    }
-
-    if (led->state.val[0] > (int16_t) ARRAY_SIZE(_pwmtable) - 1) {
-        led->state.val[0] = (int16_t) ARRAY_SIZE(_pwmtable) - 1;
-    }
-
-    pwm_set(led->params->dev, led->params->ch, _pwmtable[led->state.val[0]]);
 }
 
 static int _read(const void *arg, phydat_t *res)
 {
     dimmable_led_t *led = (dimmable_led_t *) arg;
+    size_t dim;
     unsigned state = irq_disable();
-    memcpy(res, &led->state, sizeof(phydat_t));
+    res->unit = UNIT_NONE;
+    res->scale = 0;
+    for (dim = 0; dim < PHYDAT_DIM && led->params->ch[dim].dev != PWM_UNDEF; dim++) {
+        res->val[dim] = led->setpoint[dim];
+    }
     irq_restore(state);
-    return 1;
+    return dim;
 }
 
 static int _write(const void *arg, phydat_t *data)
 {
     dimmable_led_t *led = (dimmable_led_t *) arg;
+    size_t dim;
+    ssize_t i;
     unsigned state = irq_disable();
-    memcpy(&led->state, data, sizeof(phydat_t));
-    _update_pwm(led);
+    for (dim = 0; dim < PHYDAT_DIM && led->params->ch[dim].dev != PWM_UNDEF; dim++) {
+        led->setpoint[dim] = (uint8_t) data->val[dim];
+        for (i = 0; i < data->scale; i++) {
+            led->setpoint[dim] *= 10;
+        }
+        for (i = 0; i > data->scale; i--) {
+            led->setpoint[dim] /= 10;
+        }
+    }
     irq_restore(state);
-    return 1;
+    ztimer_remove(ZTIMER_MSEC, &led->timer);
+    _update_pwm((void*) led);
+    return dim;
 }
 
 static const saul_driver_t _saul_driver = {
@@ -72,14 +101,23 @@ int dimmable_led_init(dimmable_led_t * led, const dimmable_led_params_t * params
 {
     led->params = params;
 
+    /* setup timer */
+    led->timer.callback = _update_pwm;
+    led->timer.arg = (void*) led;
+
     /* turn on PWM hardware */
-    pwm_init(led->params->dev, PWM_LEFT, led->params->freq, _pwmtable[ARRAY_SIZE(_pwmtable) - 1]);
-    pwm_poweron(led->params->dev);
-    _update_pwm(led);
+    for (size_t dim = 0; dim < PHYDAT_DIM && led->params->ch[dim].dev != PWM_UNDEF; dim++) {
+        pwm_init(led->params->ch[dim].dev, PWM_LEFT, led->params->freq, _pwmtable[ARRAY_SIZE(_pwmtable) - 1]);
+        pwm_poweron(led->params->ch[dim].dev);
+    }
 
     /* setup saul device */
-    led->saul_dev.dev = (void *) led;
+    led->saul_dev.dev = (void*) led;
     led->saul_dev.name = led->params->name;
     led->saul_dev.driver = &_saul_driver;
+
+    /* Set PWM */
+    _update_pwm((void*) led);
+
     return saul_reg_add(&led->saul_dev);
 }
