@@ -41,6 +41,6 @@ config BOARD_HOMIE_SWITCHY_DEBOUNCE
 
 config BOARD_HOMIE_SWITCHY_FREQ
     int "PWM frequency in Hz"
-    default 256
+    default 128
 
 endif
