@@ -1,0 +1,7 @@
+ifneq (,$(filter saul_default,$(USEMODULE)))
+  USEMODULE += dimmable_led
+endif
+
+ifneq (,$(filter gnrc_netdev_default,$(USEMODULE)))
+  USEMODULE += dose
+endif
