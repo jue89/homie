@@ -3,7 +3,7 @@ menuconfig KCONFIG_DIMMABLE_LED
 
 if KCONFIG_DIMMABLE_LED
 
-config CONFIG_DIMMABLE_LED_STEP_SIZE
+config CONFIG_DIMMABLE_LED_STEP_COUNT
     int "Step size"
     default 16
 

@@ -1,6 +1,9 @@
 #include <string.h>
 #include "dimmable_led.h"
 
+#define ENABLE_DEBUG 0
+#include "debug.h"
+
 /* Generated using https://victornpb.github.io/gamma-table-generator/ with gamma of 2.0 */
 static const uint16_t _pwmtable[256] = {
        0,     1,     4,     9,    16,    25,    36,    49,    65,    82,   101,   122,   145,   170,   198,   227,
@@ -28,25 +31,20 @@ static void _update_pwm(void *arg)
     bool schedule_update = false;
 
     for (dim = 0; dim < PHYDAT_DIM && led->params->ch[dim].dev != PWM_UNDEF; dim++) {
-        if (led->val[dim] > led->setpoint[dim]) {
-            /* LED gets darker */
-            if (led->val[dim] - led->setpoint[dim] < CONFIG_DIMMABLE_LED_STEP_SIZE) {
-                led->val[dim] = led->setpoint[dim];
-            } else {
-                led->val[dim] -= CONFIG_DIMMABLE_LED_STEP_SIZE;
-                schedule_update = true;
-            }
-        } else if (led->val[dim] < led->setpoint[dim]) {
-            /* LED gets brigther */
-            if (led->setpoint[dim] - led->val[dim] < CONFIG_DIMMABLE_LED_STEP_SIZE) {
-                led->val[dim] = led->setpoint[dim];
-            } else {
-                led->val[dim] += CONFIG_DIMMABLE_LED_STEP_SIZE;
-                schedule_update = true;
-            }
-        } else {
-            /* LED reached its setpoint */
+        if (led->step[dim] == 0) {
+            /* we reached setpoint */
             continue;
+        }
+
+        int diff = led->setpoint[dim] - led->val[dim];
+        if ((led->step[dim] < 0 && diff > led->step[dim]) || (led->step[dim] > 0 && diff < led->step[dim])) {
+            /* this was the last iteration towards setpoint */
+            led->val[dim] = led->setpoint[dim];
+            led->step[dim] = 0;
+        } else {
+            /* further iterations are required */
+            led->val[dim] += led->step[dim];
+            schedule_update = true;
         }
 
         pwm_set(led->params->ch[dim].dev, led->params->ch[dim].no, _pwmtable[led->val[dim]]);
@@ -71,13 +69,25 @@ static int _read(const void *arg, phydat_t *res)
     return dim;
 }
 
+static inline unsigned _div_ceil(unsigned a, unsigned b)
+{
+    return (a + b - 1) / b;
+}
+
 static int _write(const void *arg, phydat_t *data)
 {
     dimmable_led_t *led = (dimmable_led_t *) arg;
     size_t dim;
     ssize_t i;
-    unsigned state = irq_disable();
+    unsigned state;
+
+    /* abort ongoing fading */
+    ztimer_remove(ZTIMER_MSEC, &led->timer);
+
+    /* setup fading to setpoint */
+    state = irq_disable();
     for (dim = 0; dim < PHYDAT_DIM && led->params->ch[dim].dev != PWM_UNDEF; dim++) {
+        /* store the setpoint */
         led->setpoint[dim] = (uint8_t) data->val[dim];
         for (i = 0; i < data->scale; i++) {
             led->setpoint[dim] *= 10;
@@ -85,9 +95,21 @@ static int _write(const void *arg, phydat_t *data)
         for (i = 0; i > data->scale; i--) {
             led->setpoint[dim] /= 10;
         }
+
+        /* calc step width */
+        if (led->setpoint[dim] >= led->val[dim]) {
+            /* positive */
+            led->step[dim] = _div_ceil(led->setpoint[dim] - led->val[dim], CONFIG_DIMMABLE_LED_STEP_COUNT);
+        } else {
+            /* negative */
+            led->step[dim] = -1 * _div_ceil(led->val[dim] - led->setpoint[dim], CONFIG_DIMMABLE_LED_STEP_COUNT);
+        }
+
+        DEBUG("%d: Fade from %d to %d in steps of %d\n", dim, led->val[dim], led->setpoint[dim], led->step[dim]);
     }
     irq_restore(state);
-    ztimer_remove(ZTIMER_MSEC, &led->timer);
+
+    /* start fading process */
     _update_pwm((void*) led);
 
     return dim | SAUL_FLAG_QUEUE_EVENT;
@@ -117,9 +139,6 @@ int dimmable_led_init(dimmable_led_t * led, const dimmable_led_params_t * params
     led->saul_dev.dev = (void*) led;
     led->saul_dev.name = led->params->name;
     led->saul_dev.driver = &_saul_driver;
-
-    /* Set PWM */
-    _update_pwm((void*) led);
 
     return saul_reg_add(&led->saul_dev);
 }
