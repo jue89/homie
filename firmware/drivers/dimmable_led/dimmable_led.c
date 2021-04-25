@@ -89,7 +89,8 @@ static int _write(const void *arg, phydat_t *data)
     irq_restore(state);
     ztimer_remove(ZTIMER_MSEC, &led->timer);
     _update_pwm((void*) led);
-    return dim;
+
+    return dim | SAUL_FLAG_QUEUE_EVENT;
 }
 
 static const saul_driver_t _saul_driver = {
