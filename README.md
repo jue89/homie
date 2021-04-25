@@ -1,7 +1,7 @@
 # Homie
 
 Homie is an attempt to create wired smart-home devices.
-Those devices are connected using [DOSE](https://riot-os.org/api/group__drivers__dose.html).
+Those devices are connected using [DOSE](https://api.riot-os.org/group__drivers__dose.html).
 
 ## Bus Interface
 
