@@ -140,16 +140,10 @@
                         185000000
                     ]
                 },
-                "1df78754-4906-4695-872e-08cb70a60e2d": {
-                    "position": [
-                        241250000,
-                        182500000
-                    ]
-                },
                 "1f4fe83e-fbae-4efe-b8f1-614bacaf326d": {
                     "position": [
                         271250000,
-                        171250000
+                        172500000
                     ]
                 },
                 "1f508711-f818-4c09-9fb0-f50d44ffc5a9": {
@@ -197,7 +191,7 @@
                 "3c514fff-d487-491d-8b94-0b8390f20e9e": {
                     "position": [
                         252500000,
-                        171250000
+                        172500000
                     ]
                 },
                 "3d5eebe0-4bd0-4e41-a4a0-8101902343fc": {
@@ -374,12 +368,6 @@
                         185000000
                     ]
                 },
-                "ca34e8ab-2623-4dd3-8f03-890c7944ac9c": {
-                    "position": [
-                        241250000,
-                        177500000
-                    ]
-                },
                 "cd1d100b-096e-42e8-b3e7-bf53d75a7206": {
                     "position": [
                         93750000,
@@ -437,7 +425,7 @@
                 "e7bd5a8a-5339-4d44-b520-6f623755de34": {
                     "position": [
                         233750000,
-                        171250000
+                        172500000
                     ]
                 },
                 "e89a75d4-5d96-4669-a236-9d9aff5340fc": {
@@ -604,8 +592,8 @@
                 "14b2c3dd-7caf-45b6-a3e2-57b33b5fc465": {
                     "from": {
                         "bus_ripper": null,
-                        "junc": "1df78754-4906-4695-872e-08cb70a60e2d",
-                        "pin": null
+                        "junc": null,
+                        "pin": "005e4017-7585-4f07-b439-0c9631e2a38a/304699c2-7433-4b03-ad2c-c8df631dd06f"
                     },
                     "to": {
                         "bus_ripper": null,
@@ -821,7 +809,7 @@
                     "from": {
                         "bus_ripper": null,
                         "junc": null,
-                        "pin": "d0e3381f-8735-49a0-8113-898d65de7239/20f0495c-5e6e-4975-b440-1399ca09d3c3"
+                        "pin": "005e4017-7585-4f07-b439-0c9631e2a38a/20f0495c-5e6e-4975-b440-1399ca09d3c3"
                     },
                     "to": {
                         "bus_ripper": null,
@@ -961,18 +949,6 @@
                         "pin": null
                     }
                 },
-                "5738b0b5-86bd-4043-9d51-8c5cfdd0f691": {
-                    "from": {
-                        "bus_ripper": null,
-                        "junc": "1df78754-4906-4695-872e-08cb70a60e2d",
-                        "pin": null
-                    },
-                    "to": {
-                        "bus_ripper": null,
-                        "junc": null,
-                        "pin": "d0e3381f-8735-49a0-8113-898d65de7239/304699c2-7433-4b03-ad2c-c8df631dd06f"
-                    }
-                },
                 "57dfc869-2d05-4615-89ff-83bcb0af90e4": {
                     "from": {
                         "bus_ripper": null,
@@ -1037,7 +1013,7 @@
                     "from": {
                         "bus_ripper": null,
                         "junc": null,
-                        "pin": "fbe1019e-33ad-40ac-8736-b9b1db0f312a/29995253-b4b1-4c7c-a049-b6db2713ca7c"
+                        "pin": "5abaa5ff-0f5d-4ea9-aa72-2e0e95f611a6/29995253-b4b1-4c7c-a049-b6db2713ca7c"
                     },
                     "to": {
                         "bus_ripper": null,
@@ -1222,14 +1198,14 @@
                     "to": {
                         "bus_ripper": null,
                         "junc": null,
-                        "pin": "fbe1019e-33ad-40ac-8736-b9b1db0f312a/852f1fe6-06dc-4661-8a14-61a9a6ebb26a"
+                        "pin": "5abaa5ff-0f5d-4ea9-aa72-2e0e95f611a6/852f1fe6-06dc-4661-8a14-61a9a6ebb26a"
                     }
                 },
                 "900d082f-bfe5-4f88-95db-25cff0fac82d": {
                     "from": {
                         "bus_ripper": null,
                         "junc": null,
-                        "pin": "d0e3381f-8735-49a0-8113-898d65de7239/559d5e91-2169-486b-9ece-8db9867957dd"
+                        "pin": "005e4017-7585-4f07-b439-0c9631e2a38a/559d5e91-2169-486b-9ece-8db9867957dd"
                     },
                     "to": {
                         "bus_ripper": null,
@@ -1417,18 +1393,6 @@
                         "pin": null
                     }
                 },
-                "d1841b40-a8c8-41cc-a884-d064ba109235": {
-                    "from": {
-                        "bus_ripper": null,
-                        "junc": "ca34e8ab-2623-4dd3-8f03-890c7944ac9c",
-                        "pin": null
-                    },
-                    "to": {
-                        "bus_ripper": null,
-                        "junc": "1df78754-4906-4695-872e-08cb70a60e2d",
-                        "pin": null
-                    }
-                },
                 "d3024914-ae42-49b1-81c4-875c052556ce": {
                     "from": {
                         "bus_ripper": null,
@@ -1559,18 +1523,6 @@
                         "bus_ripper": null,
                         "junc": null,
                         "pin": "64265d3b-f475-4cce-ab45-14987b6b542b/29995253-b4b1-4c7c-a049-b6db2713ca7c"
-                    }
-                },
-                "fbfa10c1-4e89-4978-9083-f254129f00ec": {
-                    "from": {
-                        "bus_ripper": null,
-                        "junc": null,
-                        "pin": "d0e3381f-8735-49a0-8113-898d65de7239/2f2e33ae-ea54-4fc9-b2c0-e6be3e1d02e0"
-                    },
-                    "to": {
-                        "bus_ripper": null,
-                        "junc": "ca34e8ab-2623-4dd3-8f03-890c7944ac9c",
-                        "pin": null
                     }
                 }
             },
@@ -1745,6 +1697,28 @@
                 }
             },
             "symbols": {
+                "005e4017-7585-4f07-b439-0c9631e2a38a": {
+                    "component": "c176d4d7-59ef-4ed3-a73a-0e62386d72d7",
+                    "display_all_pads": false,
+                    "display_directions": false,
+                    "expand": 0,
+                    "gate": "8b4c20d8-37fd-40a5-8239-db8803c0baa0",
+                    "pin_display_mode": "selected_only",
+                    "placement": {
+                        "angle": 0,
+                        "mirror": false,
+                        "shift": [
+                            252500000,
+                            182500000
+                        ]
+                    },
+                    "smashed": true,
+                    "symbol": "e9b4bd8e-83ab-474a-9d91-b75f29dfe743",
+                    "texts": [
+                        "728882d0-2777-412b-a2e1-89c025ccd304",
+                        "ce52f42b-c3a3-49b3-885b-930560d22296"
+                    ]
+                },
                 "206b53ae-8994-4557-91e6-f7b330c63fdc": {
                     "component": "482ed8bc-659c-4ccf-b1de-828ff843e649",
                     "display_all_pads": false,
@@ -1815,6 +1789,25 @@
                         "shift": [
                             162500000,
                             167500000
+                        ]
+                    },
+                    "smashed": false,
+                    "symbol": "1f176305-dbe6-4349-a3c0-fe0927faaec4",
+                    "texts": []
+                },
+                "5abaa5ff-0f5d-4ea9-aa72-2e0e95f611a6": {
+                    "component": "6868f027-e661-44d7-beaf-0d0f42990ca2",
+                    "display_all_pads": false,
+                    "display_directions": false,
+                    "expand": 0,
+                    "gate": "9bfcf213-2a7e-444e-8312-ce57209fc9ec",
+                    "pin_display_mode": "selected_only",
+                    "placement": {
+                        "angle": 0,
+                        "mirror": false,
+                        "shift": [
+                            271250000,
+                            177500000
                         ]
                     },
                     "smashed": false,
@@ -2008,28 +2001,6 @@
                         "75592088-aa78-4c69-a0d0-e5df497a61d3"
                     ]
                 },
-                "d0e3381f-8735-49a0-8113-898d65de7239": {
-                    "component": "c710e59d-fbec-4785-afd7-aaeeacbce06d",
-                    "display_all_pads": false,
-                    "display_directions": false,
-                    "expand": 0,
-                    "gate": "2d3bd29d-19d4-4956-9e05-541aeefd808d",
-                    "pin_display_mode": "selected_only",
-                    "placement": {
-                        "angle": 0,
-                        "mirror": false,
-                        "shift": [
-                            252500000,
-                            180000000
-                        ]
-                    },
-                    "smashed": true,
-                    "symbol": "a5d129e6-4479-4ad4-b16e-8a61e1bcf73a",
-                    "texts": [
-                        "21952bde-627d-418b-990d-38b2b2ff508f",
-                        "ef064391-1037-4e0e-869f-ee8f30cc2ca3"
-                    ]
-                },
                 "d18be3fc-4a76-41ab-b1f5-90e69514636b": {
                     "component": "042cb80c-eda1-4776-93be-d2f20a66ed4f",
                     "display_all_pads": false,
@@ -2042,25 +2013,6 @@
                         "mirror": true,
                         "shift": [
                             233750000,
-                            177500000
-                        ]
-                    },
-                    "smashed": false,
-                    "symbol": "1f176305-dbe6-4349-a3c0-fe0927faaec4",
-                    "texts": []
-                },
-                "fbe1019e-33ad-40ac-8736-b9b1db0f312a": {
-                    "component": "c668bbc2-39e4-4a0b-9412-f0d651d52fac",
-                    "display_all_pads": false,
-                    "display_directions": false,
-                    "expand": 0,
-                    "gate": "9bfcf213-2a7e-444e-8312-ce57209fc9ec",
-                    "pin_display_mode": "selected_only",
-                    "placement": {
-                        "angle": 0,
-                        "mirror": false,
-                        "shift": [
-                            271250000,
                             177500000
                         ]
                     },
@@ -2146,23 +2098,6 @@
                     },
                     "size": 1500000,
                     "text": "Bus Out",
-                    "width": 0
-                },
-                "21952bde-627d-418b-990d-38b2b2ff508f": {
-                    "font": "simplex",
-                    "from_smash": true,
-                    "layer": 0,
-                    "origin": "center",
-                    "placement": {
-                        "angle": 0,
-                        "mirror": false,
-                        "shift": [
-                            245000000,
-                            186250000
-                        ]
-                    },
-                    "size": 1500000,
-                    "text": "$VALUE",
                     "width": 0
                 },
                 "2436e614-d40d-4aff-b5fd-36db7855118d": {
@@ -2265,6 +2200,23 @@
                     },
                     "size": 1500000,
                     "text": "Debug",
+                    "width": 0
+                },
+                "728882d0-2777-412b-a2e1-89c025ccd304": {
+                    "font": "simplex",
+                    "from_smash": true,
+                    "layer": 0,
+                    "origin": "center",
+                    "placement": {
+                        "angle": 0,
+                        "mirror": false,
+                        "shift": [
+                            245000000,
+                            188750000
+                        ]
+                    },
+                    "size": 1500000,
+                    "text": "$VALUE",
                     "width": 0
                 },
                 "75592088-aa78-4c69-a0d0-e5df497a61d3": {
@@ -2386,6 +2338,23 @@
                     "text": "$VALUE",
                     "width": 0
                 },
+                "ce52f42b-c3a3-49b3-885b-930560d22296": {
+                    "font": "simplex",
+                    "from_smash": true,
+                    "layer": 0,
+                    "origin": "center",
+                    "placement": {
+                        "angle": 0,
+                        "mirror": false,
+                        "shift": [
+                            245000000,
+                            191250000
+                        ]
+                    },
+                    "size": 1500000,
+                    "text": "$REFDES",
+                    "width": 0
+                },
                 "d8c7b7b1-a3f5-4d14-a73b-5b55a5875837": {
                     "font": "simplex",
                     "from_smash": true,
@@ -2418,23 +2387,6 @@
                     },
                     "size": 1500000,
                     "text": "$VALUE",
-                    "width": 0
-                },
-                "ef064391-1037-4e0e-869f-ee8f30cc2ca3": {
-                    "font": "simplex",
-                    "from_smash": true,
-                    "layer": 0,
-                    "origin": "center",
-                    "placement": {
-                        "angle": 0,
-                        "mirror": false,
-                        "shift": [
-                            245000000,
-                            188750000
-                        ]
-                    },
-                    "size": 1500000,
-                    "text": "$REFDES",
                     "width": 0
                 }
             },

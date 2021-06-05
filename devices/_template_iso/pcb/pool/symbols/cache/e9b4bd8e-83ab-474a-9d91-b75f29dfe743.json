@@ -52,7 +52,7 @@
             "width": 0
         }
     },
-    "name": "Three-terminal voltage regulator with enable",
+    "name": "Three-terminal voltage regulator",
     "pins": {
         "20f0495c-5e6e-4975-b440-1399ca09d3c3": {
             "decoration": {
@@ -71,23 +71,6 @@
                 -7500000
             ]
         },
-        "2f2e33ae-ea54-4fc9-b2c0-e6be3e1d02e0": {
-            "decoration": {
-                "clock": false,
-                "dot": false,
-                "driver": "default",
-                "schmitt": false
-            },
-            "keep_horizontal": false,
-            "length": 2500000,
-            "name_visible": true,
-            "orientation": "left",
-            "pad_visible": true,
-            "position": [
-                -10000000,
-                -2500000
-            ]
-        },
         "304699c2-7433-4b03-ad2c-c8df631dd06f": {
             "decoration": {
                 "clock": false,
@@ -102,7 +85,7 @@
             "pad_visible": true,
             "position": [
                 -10000000,
-                2500000
+                0
             ]
         },
         "559d5e91-2169-486b-9ece-8db9867957dd": {
@@ -119,7 +102,7 @@
             "pad_visible": true,
             "position": [
                 10000000,
-                2500000
+                0
             ]
         }
     },
@@ -160,6 +143,6 @@
         }
     },
     "type": "symbol",
-    "unit": "bfe8cef7-b71f-49d4-b7a9-0d46e40517b4",
-    "uuid": "a5d129e6-4479-4ad4-b16e-8a61e1bcf73a"
+    "unit": "d6eb9985-e536-4a5d-b7fc-816c4a22dc3b",
+    "uuid": "e9b4bd8e-83ab-474a-9d91-b75f29dfe743"
 }

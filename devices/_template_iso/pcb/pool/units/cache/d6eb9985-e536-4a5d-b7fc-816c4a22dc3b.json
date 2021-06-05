@@ -1,17 +1,11 @@
 {
     "manufacturer": "",
-    "name": "Three-terminal voltage regulator with enable",
+    "name": "Three-terminal voltage regulator",
     "pins": {
         "20f0495c-5e6e-4975-b440-1399ca09d3c3": {
             "direction": "power_input",
             "names": [],
             "primary_name": "GND",
-            "swap_group": 0
-        },
-        "2f2e33ae-ea54-4fc9-b2c0-e6be3e1d02e0": {
-            "direction": "input",
-            "names": [],
-            "primary_name": "EN",
             "swap_group": 0
         },
         "304699c2-7433-4b03-ad2c-c8df631dd06f": {
@@ -28,5 +22,5 @@
         }
     },
     "type": "unit",
-    "uuid": "bfe8cef7-b71f-49d4-b7a9-0d46e40517b4"
+    "uuid": "d6eb9985-e536-4a5d-b7fc-816c4a22dc3b"
 }
