@@ -1,6 +1,6 @@
 {
     "arcs": {},
-    "default_model": "00000000-0000-0000-0000-000000000000",
+    "default_model": "bb3da64d-20c6-408b-bff1-a83e492a3f7f",
     "dimensions": {},
     "junctions": {
         "083f2b7b-01ac-43f7-bebe-5249b79a126a": {
@@ -44,7 +44,17 @@
         }
     },
     "manufacturer": "",
-    "models": {},
+    "models": {
+        "bb3da64d-20c6-408b-bff1-a83e492a3f7f": {
+            "filename": "3d_models/cache/6d752bc3-29b3-45df-8cf2-1e3aacefbcc6/3d_models/opto/LED_0603_1608Metric.step",
+            "pitch": 0,
+            "roll": 0,
+            "x": 0,
+            "y": 0,
+            "yaw": 0,
+            "z": 0
+        }
+    },
     "name": "0603 LED",
     "pads": {
         "1a32a4c6-0adc-4947-ab27-c14c3380ecc6": {
