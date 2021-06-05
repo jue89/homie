@@ -1,0 +1,30 @@
+{
+    "MPN": [
+        false,
+        "NX3225SA-12MHZ-STD-CSR-6"
+    ],
+    "base": "87ab8611-c595-45bb-84fa-a3d67deed75e",
+    "datasheet": [
+        true,
+        ""
+    ],
+    "description": [
+        false,
+        "12 MHz 25 ppm 8 pF SMD crystal oscillator"
+    ],
+    "inherit_model": true,
+    "inherit_tags": true,
+    "manufacturer": [
+        true,
+        "NDK"
+    ],
+    "model": "25a44a9e-6591-4fe3-807a-cd2790131da0",
+    "parametric": {},
+    "tags": [],
+    "type": "part",
+    "uuid": "cf119999-d2d9-4159-af4b-3322ba00f1f1",
+    "value": [
+        false,
+        "12MHz"
+    ]
+}

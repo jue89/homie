@@ -1,0 +1,30 @@
+{
+    "MPN": [
+        false,
+        "NX3225SA-STD-CSR-6"
+    ],
+    "base": "b1ac4f74-245e-4ed2-ac53-0e6c892ab2fc",
+    "datasheet": [
+        false,
+        "https://www.ndk.com/images/products/catalog/c_NX3225SA_e.pdf"
+    ],
+    "description": [
+        false,
+        "SMD crystal oscillator 25 ppm 8 pF"
+    ],
+    "inherit_model": true,
+    "inherit_tags": true,
+    "manufacturer": [
+        true,
+        "NDK"
+    ],
+    "model": "25a44a9e-6591-4fe3-807a-cd2790131da0",
+    "parametric": {},
+    "tags": [],
+    "type": "part",
+    "uuid": "87ab8611-c595-45bb-84fa-a3d67deed75e",
+    "value": [
+        true,
+        "NX3225SA"
+    ]
+}
