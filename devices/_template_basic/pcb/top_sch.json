@@ -1680,12 +1680,9 @@
                             175000000
                         ]
                     },
-                    "smashed": true,
+                    "smashed": false,
                     "symbol": "7e8165f9-d103-44ed-806e-6f5e4b84348c",
-                    "texts": [
-                        "82938ce5-46c6-42ab-8ab5-eec7d8445c22",
-                        "2bce5ad4-b5f1-4c47-a606-a0c12bad5e07"
-                    ]
+                    "texts": []
                 },
                 "b9585a59-0cc9-4aae-9e83-afbe80fda67c": {
                     "component": "7b09eec8-a4c5-43d1-a681-087976f22029",
@@ -1865,23 +1862,6 @@
                     "text": "$VALUE",
                     "width": 0
                 },
-                "2bce5ad4-b5f1-4c47-a606-a0c12bad5e07": {
-                    "font": "simplex",
-                    "from_smash": true,
-                    "layer": 0,
-                    "origin": "center",
-                    "placement": {
-                        "angle": 0,
-                        "mirror": false,
-                        "shift": [
-                            52500000,
-                            165000000
-                        ]
-                    },
-                    "size": 1500000,
-                    "text": "$VALUE",
-                    "width": 0
-                },
                 "3c4fda8e-520e-41ba-a1e6-fd78fab7a050": {
                     "font": "simplex",
                     "from_smash": true,
@@ -1944,23 +1924,6 @@
                         "shift": [
                             15000000,
                             191250000
-                        ]
-                    },
-                    "size": 1500000,
-                    "text": "$REFDES",
-                    "width": 0
-                },
-                "82938ce5-46c6-42ab-8ab5-eec7d8445c22": {
-                    "font": "simplex",
-                    "from_smash": true,
-                    "layer": 0,
-                    "origin": "center",
-                    "placement": {
-                        "angle": 0,
-                        "mirror": false,
-                        "shift": [
-                            52500000,
-                            185000000
                         ]
                     },
                     "size": 1500000,
@@ -2115,5 +2078,6 @@
         "rev": "1"
     },
     "type": "schematic_block",
-    "uuid": "4beb4e7b-0e0d-4d26-b8a0-768fc2ffc5d2"
+    "uuid": "4beb4e7b-0e0d-4d26-b8a0-768fc2ffc5d2",
+    "version": 1
 }
