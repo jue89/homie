@@ -21,59 +21,59 @@
     "connection_lines": {},
     "dimensions": {},
     "fab_output_settings": {
-        "drill_mode": "individual",
+        "drill_mode": "merged",
         "drill_npth": ".holes_npth.xln",
-        "drill_pth": ".drills_pth.xln",
+        "drill_pth": ".XLN",
         "layers": {
             "-100": {
                 "enabled": true,
-                "filename": ".bottomlayer.ger",
+                "filename": ".GBL",
                 "layer": -100
             },
             "-110": {
                 "enabled": true,
-                "filename": ".bottomsoldermask.ger",
+                "filename": ".GBS",
                 "layer": -110
             },
             "-120": {
                 "enabled": true,
-                "filename": ".bottomsilkscreen.ger",
+                "filename": ".GBO",
                 "layer": -120
             },
             "-130": {
-                "enabled": true,
-                "filename": ".bottompaste.ger",
+                "enabled": false,
+                "filename": "",
                 "layer": -130
             },
             "0": {
                 "enabled": true,
-                "filename": ".toplayer.ger",
+                "filename": ".GTL",
                 "layer": 0
             },
             "10": {
                 "enabled": true,
-                "filename": ".topsoldermask.ger",
+                "filename": ".GTS",
                 "layer": 10
             },
             "100": {
                 "enabled": true,
-                "filename": ".boardoutline.ger",
+                "filename": ".GKO",
                 "layer": 100
             },
             "20": {
                 "enabled": true,
-                "filename": ".topsilkscreen.ger",
+                "filename": ".GTO",
                 "layer": 20
             },
             "30": {
-                "enabled": true,
-                "filename": ".toppaste.ger",
+                "enabled": false,
+                "filename": "",
                 "layer": 30
             }
         },
-        "output_directory": "",
-        "prefix": "template",
-        "zip_output": false
+        "output_directory": "/home/jue/Projects/my-home/homie/devices/switchy-rgb/emsd/21-06/gerber",
+        "prefix": "switchy-rgb",
+        "zip_output": true
     },
     "holes": {
         "7e2d6674-a3a1-41b2-a31e-8d324fa4201f": {
@@ -35464,6 +35464,23 @@
             },
             "size": 1000000,
             "text": "R",
+            "width": 150000
+        },
+        "4a8120db-bfa9-4ca3-92cb-db006957563b": {
+            "font": "simplex",
+            "from_smash": false,
+            "layer": 20,
+            "origin": "center",
+            "placement": {
+                "angle": 32768,
+                "mirror": false,
+                "shift": [
+                    27940000,
+                    0
+                ]
+            },
+            "size": 1000000,
+            "text": "JLCJLCJLCJLC",
             "width": 150000
         },
         "4ec8fa9b-726d-4180-a790-f9931f08c52c": {
