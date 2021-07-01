@@ -21,8 +21,11 @@
 #include "cpu.h"
 #include "board.h"
 #include "periph/gpio.h"
+
+#if IS_ACTIVE(MODULE_SAUL_DEFAULT)
 #include "hand_counter.h"
 #include "dimmable_led.h"
+#endif
 
 #ifndef CONFIG_KCONFIG_BOARD_HOMIE_SWITCHY
 #define CONFIG_BOARD_HOMIE_SWITCHY_SW0 1
