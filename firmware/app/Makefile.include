@@ -26,8 +26,8 @@ APPDIR ?= $(RIOTBASE)/../app
 BINDIRBASE ?= $(CURDIR)/bin
 
 EXTERNAL_BOARD_DIRS += $(RIOTBASE)/../boards
-EXTERNAL_MODULE_DIRS += $(RIOTBASE)/../drivers/dimmable_led
-EXTERNAL_MODULE_DIRS += $(RIOTBASE)/../drivers/hand_counter
-EXTERNAL_MODULE_DIRS += $(RIOTBASE)/../sys/hdp
+EXTERNAL_MODULE_DIRS += $(RIOTBASE)/../drivers
+EXTERNAL_MODULE_DIRS += $(RIOTBASE)/../sys
+WARNING_EXTERNAL_MODULE_DIRS := 0
 
 include $(RIOTBASE)/Makefile.include
