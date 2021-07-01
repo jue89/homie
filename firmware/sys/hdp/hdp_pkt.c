@@ -160,7 +160,7 @@ int hdp_pkt_dec_type(nanocbor_value_t *cbor)
 {
     uint8_t cpuid[CPUID_LEN];
     int rc;
-    uint32_t tag;
+    uint32_t tag = 0;
     nanocbor_value_t map;
 
     /* read tag */
