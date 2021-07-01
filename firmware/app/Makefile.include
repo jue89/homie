@@ -1,0 +1,33 @@
+# a minimal application Makefile
+APPLICATION ?= homie-app
+
+# Auto-init board peripherals
+USEMODULE += saul_default
+USEMODULE += gnrc_netdev_default
+USEMODULE += auto_init_gnrc_netif
+
+# Network stack
+USEMODULE += gnrc_icmpv6_echo
+USEMODULE += gnrc_icmpv6_error
+USEMODULE += gnrc_ipv6_default
+
+# Main application
+USEMODULE += hdp
+
+# Shell
+USEMODULE += od
+USEMODULE += shell
+USEMODULE += shell_commands
+USEMODULE += ps
+USEMODULE += netstats_l2
+USEMODULE += netstats_ipv6
+
+APPDIR ?= $(RIOTBASE)/../app
+BINDIRBASE ?= $(CURDIR)/bin
+
+EXTERNAL_BOARD_DIRS += $(RIOTBASE)/../boards
+EXTERNAL_MODULE_DIRS += $(RIOTBASE)/../drivers/dimmable_led
+EXTERNAL_MODULE_DIRS += $(RIOTBASE)/../drivers/hand_counter
+EXTERNAL_MODULE_DIRS += $(RIOTBASE)/../sys/hdp
+
+include $(RIOTBASE)/Makefile.include
