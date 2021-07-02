@@ -1,0 +1,30 @@
+menuconfig KCONFIG_FREQUENCY_COUNTER
+    bool "Configure frequency_counter driver"
+
+if KCONFIG_FREQUENCY_COUNTER
+
+config CONFIG_FREQUENCY_COUNTER_STACK_SIZE
+    int "Stack size"
+    default 512
+
+config CONFIG_FREQUENCY_COUNTER_PRIO
+    int "Thread priority"
+    default 1
+
+config CONFIG_FREQUENCY_COUNTER_SLEEP_MSEC
+    int "Sleep time in ms between to measurements"
+    default 100
+
+config CONFIG_FREQUENCY_COUNTER_POWER_ON_DELAY_MSEC
+    int "Sleep time in ms between power on and measurement"
+    default 10
+
+config CONFIG_FREQUENCY_COUNTER_MEASURE_TIME_HZ
+    int "Measurement time in Hz"
+    default 10
+
+config CONFIG_FREQUENCY_COUNTER_HYSTERESIS_HZ
+    int "Hysteresis for significant change in Hz"
+    default 100
+
+endif
