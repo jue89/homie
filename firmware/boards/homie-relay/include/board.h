@@ -37,10 +37,10 @@ extern "C" {
 #define DOSE_PARAM_SENSE_PIN         GPIO_PIN(PORT_A, 4)
 //#define DOSE_PARAM_BAUDRATE          MHZ(1)
 
-#define RELAY_CH1_PIN                GPIO_PIN(PORT_B, 6)
-#define RELAY_CH2_PIN                GPIO_PIN(PORT_B, 5)
-#define RELAY_CH3_PIN                GPIO_PIN(PORT_B, 4)
-#define RELAY_CH4_PIN                GPIO_PIN(PORT_B, 3)
+#define RELAY_CH0_PIN                GPIO_PIN(PORT_B, 6)
+#define RELAY_CH1_PIN                GPIO_PIN(PORT_B, 5)
+#define RELAY_CH2_PIN                GPIO_PIN(PORT_B, 4)
+#define RELAY_CH3_PIN                GPIO_PIN(PORT_B, 3)
 
 /**
  * @brief   Initialize board specific hardware

@@ -14,6 +14,12 @@ extern "C" {
 static const  saul_gpio_params_t saul_gpio_params[] =
 {
     {
+        .name = "CH0",
+        .pin = RELAY_CH0_PIN,
+        .mode = GPIO_OUT,
+        .flags = 0
+    },
+    {
         .name = "CH1",
         .pin = RELAY_CH1_PIN,
         .mode = GPIO_OUT,
@@ -28,12 +34,6 @@ static const  saul_gpio_params_t saul_gpio_params[] =
     {
         .name = "CH3",
         .pin = RELAY_CH3_PIN,
-        .mode = GPIO_OUT,
-        .flags = 0
-    },
-    {
-        .name = "CH4",
-        .pin = RELAY_CH4_PIN,
         .mode = GPIO_OUT,
         .flags = 0
     },
