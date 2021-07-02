@@ -1,0 +1,9 @@
+config BOARD
+    default "homie-flowr" if BOARD_HOMIE_FLOWR
+
+config BOARD_HOMIE_FLOWR
+    bool
+    default y
+    select CPU_MODEL_STM32F030CC
+    select HAS_PERIPH_TIMER
+    select HAS_PERIPH_UART
