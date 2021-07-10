@@ -47,7 +47,12 @@ static void _update_pwm(void *arg)
             schedule_update = true;
         }
 
-        pwm_set(led->params->ch[dim].dev, led->params->ch[dim].no, _pwmtable[led->val[dim]]);
+        uint16_t value = _pwmtable[led->val[dim]];
+        if (led->params->invert) {
+            value = _pwmtable[ARRAY_SIZE(_pwmtable) - 1] - value;
+        }
+
+        pwm_set(led->params->ch[dim].dev, led->params->ch[dim].no, value);
     }
 
     if (schedule_update) {
@@ -133,6 +138,14 @@ int dimmable_led_init(dimmable_led_t * led, const dimmable_led_params_t * params
     for (size_t dim = 0; dim < PHYDAT_DIM && led->params->ch[dim].dev != PWM_UNDEF; dim++) {
         pwm_init(led->params->ch[dim].dev, PWM_LEFT, led->params->freq, _pwmtable[ARRAY_SIZE(_pwmtable) - 1]);
         pwm_poweron(led->params->ch[dim].dev);
+    }
+
+    for (size_t dim = 0; dim < PHYDAT_DIM && led->params->ch[dim].dev != PWM_UNDEF; dim++) {
+        uint16_t value = _pwmtable[led->val[dim]];
+        if (led->params->invert) {
+            value = _pwmtable[ARRAY_SIZE(_pwmtable) - 1] - value;
+        }
+        pwm_set(led->params->ch[dim].dev, led->params->ch[dim].no, value);
     }
 
     /* setup saul device */

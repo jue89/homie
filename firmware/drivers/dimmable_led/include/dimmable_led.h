@@ -26,6 +26,7 @@ typedef struct {
 typedef struct {
     uint32_t freq;
     const char * name;
+    const bool invert;
     const dimmable_led_ch_t ch[PHYDAT_DIM];
 } dimmable_led_params_t;
 
