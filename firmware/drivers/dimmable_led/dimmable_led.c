@@ -24,6 +24,8 @@ static const uint16_t _pwmtable[256] = {
    58052, 58537, 59023, 59512, 60003, 60496, 60991, 61488, 61986, 62487, 62990, 63495, 64002, 64511, 65022, 65535,
 };
 
+static unsigned intialized_pwm_devs = 0x00;
+
 static void _update_pwm(void *arg)
 {
     dimmable_led_t *led = (dimmable_led_t *) arg;
@@ -136,11 +138,12 @@ int dimmable_led_init(dimmable_led_t * led, const dimmable_led_params_t * params
 
     /* turn on PWM hardware */
     for (size_t dim = 0; dim < PHYDAT_DIM && led->params->ch[dim].dev != PWM_UNDEF; dim++) {
-        pwm_init(led->params->ch[dim].dev, PWM_LEFT, led->params->freq, _pwmtable[ARRAY_SIZE(_pwmtable) - 1]);
-        pwm_poweron(led->params->ch[dim].dev);
-    }
+        if ((intialized_pwm_devs & (1 << led->params->ch[dim].dev)) == 0) {
+            pwm_init(led->params->ch[dim].dev, PWM_LEFT, led->params->freq, _pwmtable[ARRAY_SIZE(_pwmtable) - 1]);
+            pwm_poweron(led->params->ch[dim].dev);
+            intialized_pwm_devs |= (1 << led->params->ch[dim].dev);
+        }
 
-    for (size_t dim = 0; dim < PHYDAT_DIM && led->params->ch[dim].dev != PWM_UNDEF; dim++) {
         uint16_t value = _pwmtable[led->val[dim]];
         if (led->params->invert) {
             value = _pwmtable[ARRAY_SIZE(_pwmtable) - 1] - value;
