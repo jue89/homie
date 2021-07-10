@@ -1,0 +1,46 @@
+config BOARD
+    default "homie-switchy" if BOARD_HOMIE_SWITCHY_RGB
+
+config BOARD_HOMIE_SWITCHY_RGB
+    bool
+    default y
+    select CPU_MODEL_STM32F030CC
+    select HAS_PERIPH_PWM
+    select HAS_PERIPH_TIMER
+    select HAS_PERIPH_UART
+
+menuconfig KCONFIG_BOARD_HOMIE_SWITCHY_RGB
+    bool "Configure homie-switchy board"
+    depends on BOARD_HOMIE_SWITCHY_RGB
+
+if KCONFIG_BOARD_HOMIE_SWITCHY_RGB
+
+config BOARD_HOMIE_SWITCHY_RGB_SW0
+    bool "Enable SW0"
+    default y
+
+config BOARD_HOMIE_SWITCHY_RGB_SW1
+    bool "Enable SW1"
+    default y
+
+config BOARD_HOMIE_SWITCHY_RGB_SW2
+    bool "Enable SW2"
+    default y
+
+config BOARD_HOMIE_SWITCHY_RGB_SW3
+    bool "Enable SW3"
+    default y
+
+config BOARD_HOMIE_SWITCHY_RGB_SW4
+    bool "Enable SW4"
+    default y
+
+config BOARD_HOMIE_SWITCHY_RGB_DEBOUNCE
+    int "Debounce time in us"
+    default 50000
+
+config BOARD_HOMIE_SWITCHY_RGB_FREQ
+    int "PWM frequency in Hz"
+    default 128
+
+endif

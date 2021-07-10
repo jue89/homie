@@ -1,0 +1,7 @@
+CPU = stm32
+CPU_MODEL = stm32f103rc
+
+# Put defined MCU peripherals here (in alphabetical order)
+FEATURES_PROVIDED += periph_pwm
+FEATURES_PROVIDED += periph_timer
+FEATURES_PROVIDED += periph_uart
