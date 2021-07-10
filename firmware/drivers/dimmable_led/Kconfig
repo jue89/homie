@@ -3,11 +3,11 @@ menuconfig KCONFIG_DIMMABLE_LED
 
 if KCONFIG_DIMMABLE_LED
 
-config CONFIG_DIMMABLE_LED_STEP_COUNT
+config DIMMABLE_LED_STEP_COUNT
     int "Step size"
     default 16
 
-config CONFIG_DIMMABLE_LED_STEP_DURATION
+config DIMMABLE_LED_STEP_DURATION
     int "Duration of one step in ms"
     default 40
 

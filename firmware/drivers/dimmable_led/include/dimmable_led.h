@@ -5,6 +5,7 @@
 #include "phydat.h"
 #include "periph/pwm.h"
 #include "ztimer.h"
+#include "board.h"
 
 #ifndef CONFIG_DIMMABLE_LED_STEP_COUNT
 #define CONFIG_DIMMABLE_LED_STEP_COUNT 16
