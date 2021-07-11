@@ -15,7 +15,7 @@ Before=network-online.target
 
 [Service]
 Type=simple
-ExecStart=$INSTALLDIR/ethos $TAPDEV $TTYDEV
+ExecStart=$INSTALLDIR/ethos $TAPDEV $TTYDEV 19200
 ExecStartPost=ip link set $TAPDEV up
 Restart=on-failure
 

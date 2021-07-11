@@ -14,6 +14,8 @@ USEMODULE += ztimer ztimer_usec
 #USEMODULE += schedstatistics
 #DEVELHELP ?= 1
 
+CFLAGS += -DSTDIO_UART_BAUDRATE=19200
+
 RIOTBASE ?= $(CURDIR)/../../../../firmware/RIOT
 EXTERNAL_BOARD_DIRS ?= $(CURDIR)/../board
 include $(RIOTBASE)/Makefile.include
