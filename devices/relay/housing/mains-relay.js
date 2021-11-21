@@ -3,9 +3,9 @@ const {TR, BR, BL, TL, CC, BC} = require('quickbox/alignment');
 const {rectangle, circle, fromPoints} = require('quickbox/elements');
 
 const connector = [
-	circle({radius: 3, center: [0, 20]}),
+	circle({radius: 1.7, center: [0, 20]}),
 	rectangle({size: [24.8, 32.5], center: [0, 0]}),
-	circle({radius: 3, center: [0, -20]})
+	circle({radius: 1.7, center: [0, -20]})
 ];
 
 const box = new Box({
@@ -14,7 +14,7 @@ const box = new Box({
 		/* 3D prints aren't perfect.
 		 * The oversize option adds a gap at every point the 3D print
 		 * touches any other object like jacks, PCB, ... */
-		oversize: 0.2
+		oversize: 0.3
 	},
 	box: {
 		/* Box radius */
@@ -63,7 +63,7 @@ const box = new Box({
 
 		/* Padding measured from the PCB edge to the outer box edge
 		 *        N   E     S   W */
-		padding: [60, 6.48, 15, 80]
+		padding: [50, 6.48, 15, 80]
 	},
 	mounts: [
 		/* Center positions of the PCB mounts.
@@ -85,9 +85,9 @@ const box = new Box({
 		anchor: 'center',
 		sketch: {
 			jpwr_x: CC([-42, 0], [
-				circle({radius: 3, center: [0, 18]}),
-				rectangle({size: [30.8, 26.9], center: [0, 0]}),
-				circle({radius: 3, center: [0, -18]})
+				circle({radius: 1.7, center: [0, 18]}),
+				rectangle({size: [31.1, 27.3], center: [0, 0]}),
+				circle({radius: 1.7, center: [0, -18]})
 			]),
 		}
 	}, {
@@ -96,16 +96,16 @@ const box = new Box({
 		sketch: {
 			j4: BC([6.35, 0], fromPoints([
 				[0, 0],
-				[11.43, 0],
-				[11.43, 8.5],
-				[6.74, 8.5],
-				[6.74, 10.4],
-				[3.2, 10.4],
-				[3.2, 8.5],
+				[11.7, 0],
+				[11.7, 8.7],
+				[7.2, 8.7],
+				[7.2, 10.5],
+				[3.0, 10.5],
+				[3.0, 8.7],
 				[0, 8.5]
 			])),
-			j3: BC([24.13, 1.02], rectangle({size: [11.31, 15.11]})),
-			j1: BC([40.64, 1.02], rectangle({size: [11.31, 15.11]}))
+			j3: BC([24.13, 0.9], rectangle({size: [11.5, 15.3]})),
+			j1: BC([40.64, 0.9], rectangle({size: [11.5, 15.3]}))
 		}
 	}]
 });
