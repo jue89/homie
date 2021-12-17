@@ -30,10 +30,10 @@ const box = new Box({
 		/* Box screws: */
 		boxScrew: {
 			/* Diameter of the thread insert */
-			threadInsertDiameter: 4,
+			threadInsertDiameter: 3.6,
 
 			/* Height of the thread insert */
-			threadInsertHeight: 5.7,
+			threadInsertHeight: 6.0,
 
 			/* Screw diameter */
 			screwDiameter: 3,
@@ -45,10 +45,10 @@ const box = new Box({
 		/* Inner PCB mounting screws: */
 		mountingScrew: {
 			/* Diameter of the thread insert */
-			threadInsertDiameter: 4,
+			threadInsertDiameter: 3.6,
 
 			/* Height of the thread insert */
-			threadInsertHeight: 5.7,
+			threadInsertHeight: 6.0,
 
 			/* Diameter of the dome the PCB is resting on */
 			domeDiameter: 8
