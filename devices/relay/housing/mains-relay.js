@@ -94,16 +94,7 @@ const box = new Box({
 		face: 'e',
 		anchor: 'pcb-left',
 		sketch: {
-			j4: BC([6.35, 0], fromPoints([
-				[0, 0],
-				[11.7, 0],
-				[11.7, 8.7],
-				[7.2, 8.7],
-				[7.2, 10.5],
-				[3.0, 10.5],
-				[3.0, 8.7],
-				[0, 8.5]
-			])),
+			j4: BC([6.35, 0], rectangle({size: [11.7, 10.5]})),
 			j3: BC([24.13, 0.9], rectangle({size: [11.5, 15.3]})),
 			j1: BC([40.64, 0.9], rectangle({size: [11.5, 15.3]}))
 		}
